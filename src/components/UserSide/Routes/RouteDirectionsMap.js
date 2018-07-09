@@ -10,7 +10,7 @@ class RouteDirectionsMap extends Component {
 	}
 
 	componentDidMount() {
-		GoogleMapsLoader.KEY = 'AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg';
+		GoogleMapsLoader.KEY = 'AIzaSyDE_qkM7At0AphjfEhIUWcEWebtPMq8zNw';
 	    GoogleMapsLoader.LIBRARIES = ['places', 'geometry'];
 	    GoogleMapsLoader.load((google) => {
 	      	this.map = new google.maps.Map(document.getElementById('routeMap'), {

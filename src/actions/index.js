@@ -2,7 +2,20 @@ import axios from 'axios';
 import axiosAuth from '../utils/axiosAuth';
 import {reset} from 'redux-form';
 import history from '../utils/history';
-import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH } from'./types';
+import LinkKey from '../utils/linkKeys';
+import loaderControllor from '../utils/loaderControllor';
+import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RESERVATION } from'./types';
+
+export const saveReservation = (reservationData) => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.post(LinkKey('/api/reservation/save'), reservationData);
+		dispatch({type:INFO_RESERVATION, payload: res.data});
+		history.push('/dashboard', { some: 'state' });
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+	}
+}
 
 export const setApplicationRoute = (searchData) => dispatch => {
 	dispatch({type:INFO_SEARCH, payload: searchData});
@@ -10,7 +23,7 @@ export const setApplicationRoute = (searchData) => dispatch => {
 
 export const searchRoutes = (routeData) => async dispatch => {
 	try{
-		const res = await axios.post('/api/searchRoutes', routeData);
+		const res = await axios.post(LinkKey('/api/route/search'), routeData);
 		dispatch({type:SEARCH_ROUTE, payload: res.data})
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -19,15 +32,16 @@ export const searchRoutes = (routeData) => async dispatch => {
 }
 
 export const updateUser = (userData, photo) => async dispatch => {
-
-	try{
-		// const uploadConfig = await axios.get('/api/user/photoUpload');
+		// const uploadConfig = await axios.get(LinkKey('/api/user/photoUpload'));
 		// const upload = await axios.put(uploadConfig.data.url, photo, {
 		// 	headers: {
-		// 		'Content-Type': 'image/jpg'
+		// 		'Access-Control-Allow-Headers': '*',
+		// 		'Content-Type': photo.type
 		// 	}
 		// })
-		const res = await axios.post('/api/user/update', userData);
+
+	try{
+		const res = await axios.post(LinkKey('/api/user/update'), userData);
 		dispatch({type: FETCH_USER, payload: res.data});
 		history.push('/dashboard', { some: 'state' });
 	}catch(error){
@@ -40,9 +54,8 @@ export const clearRouteForm = () => dispatch => {
 }
 
 export const getRouteForApplication = (routeId) => async dispatch => {
-	console.log(routeId);
 	try{
-		const res = await axios.post('/api/getRouteForApplication', routeId);
+		const res = await axios.post(LinkKey('/api/route/getRouteForApplication'), routeId);
 		dispatch({type: CREATE_ROUTE, payload: res.data});
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -51,7 +64,7 @@ export const getRouteForApplication = (routeId) => async dispatch => {
 
 export const saveRoute = (routeData) => async dispatch => {
 	try{
-		const res = await axios.post('/api/saveRoute', routeData);
+		const res = await axios.post(LinkKey('/api/route/save'), routeData);
 		dispatch({type: CREATE_ROUTE, payload: res.data});
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -60,7 +73,9 @@ export const saveRoute = (routeData) => async dispatch => {
 
 export const fetchUser = () => async dispatch => {
 	try{
-		const res = await axios.get('/api/user');
+		const link = LinkKey('/api/user');
+		console.log(link);
+		const res = await axios.get(link);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -68,8 +83,9 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const findUserByEmail = (newPassValues) => async dispatch => {
+	loaderControllor('on');
 	try{
-		const res = await axios.post('/api/findUserByEmail', newPassValues);
+		const res = await axios.post(LinkKey('/api/user/findByEmail'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -77,8 +93,9 @@ export const findUserByEmail = (newPassValues) => async dispatch => {
 }
 
 export const checkPasscode = (newPassValues) => async dispatch => {
+	loaderControllor('on');
 	try{
-		const res = await axios.post('/api/checkPasscode', newPassValues);
+		const res = await axios.post(LinkKey('/api/user/checkPasscode'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -86,8 +103,9 @@ export const checkPasscode = (newPassValues) => async dispatch => {
 }
 
 export const changePassword = (newPassValues) => async dispatch => {
+	loaderControllor('on');
 	try{
-		const res = await axios.post('/api/changePassword', newPassValues);
+		const res = await axios.post(LinkKey('/api/user/changePassword'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -103,8 +121,10 @@ export const clearError = () => dispatch => {
 }
 
 export const loginUser = (loginValues) => async dispatch => {
+	loaderControllor('on');
 	try{
-		const res = await axios.post('/api/user/login', loginValues);
+		const link = LinkKey('/api/user/login');
+		const res = await axios.post(link, loginValues);
 		localStorage.setItem('user', res.data);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
@@ -114,8 +134,9 @@ export const loginUser = (loginValues) => async dispatch => {
 };
 
 export const signupUser = (signupValues) => async dispatch => {
+	loaderControllor('on');
 	try{
-		const res = await axios.post('/api/user/signup', signupValues);
+		const res = await axios.post(LinkKey('/api/user/signup'), signupValues);
 		localStorage.setItem('user', res.data);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {

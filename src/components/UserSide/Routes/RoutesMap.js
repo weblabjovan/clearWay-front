@@ -15,8 +15,7 @@ class RoutesMap extends Component {
 	}
 
 	async clearWaypoints() {
-		var d = new Date(this.props.routeInfo.time);
-		this.props.routeInfo.time = parseInt((""+d.getHours() + d.getMinutes()));
+		console.log(this.props.routeInfo.time);
 		const routeData = {routeInfo: this.props.routeInfo, waypoints: this.getWaypoints(), steps: this.getSteps()};
 		await this.props.saveRoute(routeData);
 		localStorage.removeItem('routeDirections');

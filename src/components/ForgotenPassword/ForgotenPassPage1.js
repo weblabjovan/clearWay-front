@@ -46,7 +46,7 @@ class NewPassOne extends Component {
 		return(
 				
 				<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.findUserByEmail(this.props.emailCheckValues))}>
-					<p className="paragraphGen">Enter your email so we can send you security code for your password change.</p>
+					<p className="paragraphGen">Unesi svoj email kako bi mogli da ti pošaljemo sigurnosni kod za promenu lozinke.</p>
 					<Field
 						component={TextField}
 						name="email"

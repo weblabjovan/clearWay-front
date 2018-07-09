@@ -56,6 +56,7 @@ const AppItem = (props) => {
 					fullWidth= {true}
 					style={buttonStyles.formButton}
 					labelStyle={buttonStyles.headerLabel}
+					onClick={props.send}
 				/>
 			</div>
 

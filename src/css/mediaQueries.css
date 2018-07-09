@@ -3,6 +3,10 @@
     color: #969696;
 }
 
+.master-container{
+    position: relative;
+}
+
 @media only screen and (max-width: 768px) {
     .headlineGen{
         margin: 10px;
@@ -186,3 +190,19 @@
                 margin-left: 6px;
                 line-height: 19px;
             }
+
+.loader{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 254, 254, 0.8);
+    z-index: 99;
+    display: none;
+
+}
+
+    .loader .loader-container{
+        text-align: center;
+        margin-top: 100px;
+    }

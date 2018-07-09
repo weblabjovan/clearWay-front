@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import history from '../../utils/history';
 import isUserLogged from '../../utils/isUserLogged';
+import loaderControllor from '../../utils/loaderControllor';
 
 class Dashboard extends Component {
 
@@ -17,6 +18,10 @@ class Dashboard extends Component {
 				this.props.login();
 			}
 		}
+	}
+
+	componentDidMount() {
+		loaderControllor('off');
 	}
 
 	render() {

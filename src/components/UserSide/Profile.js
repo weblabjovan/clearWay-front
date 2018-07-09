@@ -10,6 +10,7 @@ import buttonStyles from '../../styles/buttonStyles';
 import * as actions from '../../actions';
 import fillProfile from '../../utils/profileFill';
 import history from '../../utils/history';
+import LinkKey from '../../utils/linkKeys';
 import isUserLogged from '../../utils/isUserLogged';
 import axios from 'axios';
 import avatar from '../../avatar.png';
@@ -69,7 +70,8 @@ class Profile extends Component {
 	}
 
 	async componentDidMount() {
-		const user = await axios.get('/api/user');
+		const link = LinkKey('/api/user');
+		const user = await axios.get(link);
 		if (user.data.userType === 'true') {
 			this.setState({
 				userType: 'Vozač'

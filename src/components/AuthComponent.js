@@ -13,6 +13,7 @@ import Search from './UserSide/Search';
 import RideApp from './UserSide/RideApp';
 import Profile from './UserSide/Profile';
 import ForgotenPassword from './ForgotenPassword/ForgotenPassword';
+import Loader from './Regulars/Loader';
 import history from '../utils/history';
 import { Router, Route } from "react-router-dom";
 
@@ -70,7 +71,8 @@ class AuthComponent extends Component {
     return (
         
         <Router history={history}>
-          <div>
+          <div className="master-container">
+            <Loader />
             <Header 
             width={this.state.width} 
             drawerOpen={this.handleDrawerToggle} 
@@ -85,7 +87,7 @@ class AuthComponent extends Component {
                 <Dashboard login={this.authLogged} match={match} />
               )
             }} />
-
+            
             <Route path="/routes" render={({match}) => {
               return(
                 <Routes login={this.authLogged} match={match} />

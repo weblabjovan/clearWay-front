@@ -12,6 +12,8 @@ import ErrorReporting from 'material-ui-error-reporting';
 import { Link } from "react-router-dom";
 import history from '../utils/history';
 import '../css/mediaQueries.css';
+import LinkKey from '../utils/linkKeys';
+import loaderControllor from '../utils/loaderControllor';
 
 class Login extends Component {
 	
@@ -25,6 +27,7 @@ class Login extends Component {
 
 	componentDidMount(){
 		this.props.clearError();
+		loaderControllor('off');
 	}
 
 	componentDidUpdate() {
@@ -82,7 +85,7 @@ class Login extends Component {
 				    hoverColor="#4377d0"
 				    fullWidth= {true}
 				    labelStyle={buttonStyles.headerLabel}
-				    href='/api/auth/google'
+				    href={LinkKey('/api/auth/google')}
 			  	/>
 				<br />
 				<FlatButton

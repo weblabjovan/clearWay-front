@@ -6,6 +6,7 @@ import NewPassTwo from './ForgotenPassPage2';
 import NewPassThree from './ForgotenPassPage3';
 import formStyles from '../../styles/formStyles';
 import history from '../../utils/history';
+import loaderControllor from '../../utils/loaderControllor';
 
 class ForgotenPassword extends Component {
 	constructor() {
@@ -20,6 +21,7 @@ class ForgotenPassword extends Component {
 		if (this.props.auth.change === true) {
 			history.push('/login', { some: 'state' });
 		}
+		loaderControllor('off');
 	}
 	changePage() {
 		if (this.props.auth.email) {
@@ -40,7 +42,7 @@ class ForgotenPassword extends Component {
 
 		return(
 			<div style={formStyles.containerStyle}>
-				<h1 className="headlineGen">Change Password</h1>
+				<h1 className="headlineGen">Promeni lozinku</h1>
 		        {this.checkPage() === 1 && <NewPassOne />}
 		        {this.checkPage() === 2 && (<NewPassTwo email={this.email} />)}
 		        {this.checkPage() === 3 && (<NewPassThree email={this.email} />)}

@@ -12,6 +12,11 @@ import AppItem from './Application/AppItem';
 
 class RideApp extends Component {
 
+	sendReservation() {
+		const resData = {route: this.props.search, start: this.props.searchParams.start, end: this.props.searchParams.end, rideDate: this.props.searchParams.date}
+		this.props.saveReservation(resData);
+	}
+
 	displayItem(){
 		if (this.props.route.length === undefined && !isObjectEmpty(this.props.route)) {
 			const d = new Date(this.props.route.rideDate);
@@ -26,6 +31,7 @@ class RideApp extends Component {
 					distance={Math.round(this.props.route.startDistance)}
 					duration={this.props.route.rideTime}
 					discount={this.props.route.rideDiscount}
+					send={() => this.sendReservation()}
 				/>
 			)
 		}
