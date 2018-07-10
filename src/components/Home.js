@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import isUserLogged from '../utils/isUserLogged';
 import axiosAuth from '../utils/axiosAuth';
+import formStyles from '../styles/formStyles';
 
 
 class Home extends Component {
@@ -16,8 +17,8 @@ class Home extends Component {
 
 	render() {
 		return(
-			<div style={{textAlign: 'center'}}>
-				<h1>This is Home page</h1>
+			<div style={formStyles.containerStyle}>
+				<h1 className="headlineGen">This is Home page</h1>
 			</div>
 		);
 	}
