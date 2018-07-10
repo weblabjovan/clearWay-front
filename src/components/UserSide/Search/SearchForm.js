@@ -5,10 +5,10 @@ import { reduxForm, Field } from 'redux-form';
 import {
   TextField,
   DatePicker,
-  TimePicker
+  SelectField
 } from 'redux-form-material-ui';
 import GoogleMapsLoader from 'google-maps';
-import FlatButton from 'material-ui/FlatButton';
+import { MenuItem, FlatButton } from 'material-ui';
 import formStyles from '../../../styles/formStyles';
 import buttonStyles from '../../../styles/buttonStyles';
 import * as actions from '../../../actions';
@@ -107,6 +107,24 @@ class SearchFrom extends Component {
 			     	onChange={() => this.clearInput('end')}
 					/>
 
+					<Field
+	            name="distance"
+	            component={SelectField}
+	            hintText="Udaljenost od polazišta/odredišta"
+	            fullWidth= {true}
+	            style={formStyles.field}
+	            labelStyle={formStyles.selectLabelStyle}
+	            floatingLabelStyle={formStyles.selectFloatingLabelStyle}
+	            floatingLabelText="Udaljenost od polazišta/odredišta"
+	          >
+	            <MenuItem value="50" primaryText="50 metara" key="1"/>
+	            <MenuItem value="100" primaryText="100 metara" key="2"/>
+	            <MenuItem value="150" primaryText="150 metara" key="3"/>
+	            <MenuItem value="200" primaryText="200 metara" key="4"/>
+	            <MenuItem value="250" primaryText="250 metara" key="5"/>
+	            <MenuItem value="300" primaryText="300 metara" key="6"/>
+	          </Field>
+
 					<div>
 	          <Field
 	            name="date"
@@ -162,6 +180,9 @@ function validate(values) {
 	}
 	if (!values.end) {
 		errors['end'] = "Odredište je obavezno polje";
+	}
+	if (!values.distance) {
+		errors['distance'] = "Udaljenost od polazišta/odredišta je obavezno polje.";
 	}
 	if (!values.date) {
 		errors['date'] = "Dan je obavezno polje";

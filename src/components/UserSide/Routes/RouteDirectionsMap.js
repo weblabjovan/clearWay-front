@@ -14,7 +14,6 @@ class RouteDirectionsMap extends Component {
 	    GoogleMapsLoader.LIBRARIES = ['places', 'geometry'];
 	    GoogleMapsLoader.load((google) => {
 	      	this.map = new google.maps.Map(document.getElementById('routeMap'), {
-	          zoom: 17,
 	          center: {lat: 44.8071227, lng: 20.4806883}  // Belgrade.
 	        });
 

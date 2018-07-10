@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Header from './Header/Header';
 import DrawerUndocked from './DrawerUndocked';
+import DrawerDocked from './DrawerDocked';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
@@ -79,50 +80,55 @@ class AuthComponent extends Component {
             logout={this.authLoggedOut}
             auth={this.state.auth} />
 
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/forgotenpass" component={ForgotenPassword} />
-            <Route path="/dashboard/:token?" render={({match}) => {
-              return(
-                <Dashboard login={this.authLogged} match={match} />
-              )
-            }} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/forgotenpass" component={ForgotenPassword} />
+              <Route path="/dashboard/:token?" render={({match}) => {
+                return(
+                  <Dashboard login={this.authLogged} match={match} />
+                )
+              }} />
+              
+              <Route path="/routes" render={({match}) => {
+                return(
+                  <Routes login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/" exact render={({match}) => {
+                return(
+                  <Home login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/profile" render={({match}) => {
+                return(
+                  <Profile login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/search" render={({match}) => {
+                return(
+                  <Search login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/application" render={({match}) => {
+                return(
+                  <RideApp login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/messages" render={({match}) => {
+                return(
+                  <Messages login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <DrawerDocked   
+                auth={this.state.auth}
+                width={this.state.width}  />
             
-            <Route path="/routes" render={({match}) => {
-              return(
-                <Routes login={this.authLogged} match={match} />
-              )
-            }} />
-
-            <Route path="/" exact render={({match}) => {
-              return(
-                <Home login={this.authLogged} match={match} />
-              )
-            }} />
-
-            <Route path="/profile" render={({match}) => {
-              return(
-                <Profile login={this.authLogged} match={match} />
-              )
-            }} />
-
-            <Route path="/search" render={({match}) => {
-              return(
-                <Search login={this.authLogged} match={match} />
-              )
-            }} />
-
-            <Route path="/application" render={({match}) => {
-              return(
-                <RideApp login={this.authLogged} match={match} />
-              )
-            }} />
-
-            <Route path="/messages" render={({match}) => {
-              return(
-                <Messages login={this.authLogged} match={match} />
-              )
-            }} />
 
             <DrawerUndocked 
             open={this.state.open} 
@@ -130,6 +136,8 @@ class AuthComponent extends Component {
             drawerClose={this.handleDrawerClose} 
             auth={this.state.auth}
             logout={this.authLoggedOut} />
+
+            
           </div>
           
         </Router>

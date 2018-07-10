@@ -11,6 +11,7 @@ import * as actions from '../../actions';
 import fillProfile from '../../utils/profileFill';
 import history from '../../utils/history';
 import LinkKey from '../../utils/linkKeys';
+import emailValidate from '../../utils/emailValidate';
 import isUserLogged from '../../utils/isUserLogged';
 import axios from 'axios';
 import avatar from '../../avatar.png';
@@ -250,6 +251,23 @@ function getValues(state) {
 	return def;
 }
 
+function validate(values) {
+	let errors = {};
+
+	if (values.phone) {
+		let reg = /^\d+$/; 
+		if (!reg.test(values.phone)) {
+			errors['phone'] = "Telefon mora biti izražen samo sa brojevima."
+		}
+	}
+
+	if (!emailValidate(values.email)) {
+		errors['email'] = "Upisani email nije validan";
+	}
+
+	return errors;
+}
+
 function mapStateToProps(state){
 	return { profile: getValues(state), error: state.error };
 }
@@ -257,5 +275,6 @@ function mapStateToProps(state){
 Profile = connect(mapStateToProps, actions)(Profile);
 
 export default reduxForm({
+  validate,
   form: 'profile' // a unique name for this form
 })(Profile);
