@@ -35,10 +35,13 @@ export const updateUser = (userData, photo) => async dispatch => {
 		// const uploadConfig = await axios.get(LinkKey('/api/user/photoUpload'));
 		// const upload = await axios.put(uploadConfig.data.url, photo, {
 		// 	headers: {
-		// 		'Access-Control-Allow-Headers': '*',
-		// 		'Content-Type': photo.type
+		// 		'Content-Type': photo.type,
+		// 		'x-amz-acl': 'public-read',
+  //            'x-amz-region': 'us-east-2'
 		// 	}
-		// })
+		// });
+
+
 
 	try{
 		const res = await axios.post(LinkKey('/api/user/update'), userData);

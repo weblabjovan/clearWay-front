@@ -7,7 +7,8 @@ import SearchItem from './SearchItem';
 class SearchResult extends Component {
 
 	displayResults() {
-		if (this.props.routeInfo.length > 0) {
+		console.log(this.props.routeInfo);
+		if (this.props.routeInfo.length > 0 && typeof this.props.routeInfo === "object") {
 			return(
 				this.props.routeInfo.map( (route, index) => {
 					return (

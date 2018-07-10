@@ -3,7 +3,8 @@ const formStyles = {
 		textAlign: 'center', 
 		maxWidth: '600px',
 		margin: 'auto',
-		padding: '15px'
+		padding: '15px',
+    paddingTop: '80px'
 	},
 	errorStyle: {
     color: '#fb3131',

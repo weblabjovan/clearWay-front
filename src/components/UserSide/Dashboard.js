@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import history from '../../utils/history';
 import isUserLogged from '../../utils/isUserLogged';
 import loaderControllor from '../../utils/loaderControllor';
+import formStyles from '../../styles/formStyles';
 
 class Dashboard extends Component {
 
@@ -26,8 +27,8 @@ class Dashboard extends Component {
 
 	render() {
 		return(
-			<div style={{textAlign: 'center'}}>
-				<h1>This is Dashboard page</h1>
+			<div style={formStyles.containerStyle}>
+				<h1 className="headlineGen">This is Dashboard page</h1>
 			</div>
 			
 		);

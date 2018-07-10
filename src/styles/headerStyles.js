@@ -1,6 +1,7 @@
 const headerStyles = {
 	header: {
-		background: '#4e6a9a'
+		background: '#4e6a9a',
+		position: 'fixed'
 	},
 	headerImageWrapper: {
 		width: '100px',
