@@ -77,7 +77,6 @@ export const saveRoute = (routeData) => async dispatch => {
 export const fetchUser = () => async dispatch => {
 	try{
 		const link = LinkKey('/api/user');
-		console.log(link);
 		const res = await axios.get(link);
 		dispatch({type: FETCH_USER, payload: res.data});
 	}catch(error) {
@@ -90,8 +89,10 @@ export const findUserByEmail = (newPassValues) => async dispatch => {
 	try{
 		const res = await axios.post(LinkKey('/api/user/findByEmail'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
+		loaderControllor('off');
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 
@@ -100,8 +101,10 @@ export const checkPasscode = (newPassValues) => async dispatch => {
 	try{
 		const res = await axios.post(LinkKey('/api/user/checkPasscode'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
+		loaderControllor('off');
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 
@@ -110,8 +113,10 @@ export const changePassword = (newPassValues) => async dispatch => {
 	try{
 		const res = await axios.post(LinkKey('/api/user/changePassword'), newPassValues);
 		dispatch({type: FETCH_USER, payload: res.data});
+		loaderControllor('off');
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 
@@ -130,8 +135,11 @@ export const loginUser = (loginValues) => async dispatch => {
 		const res = await axios.post(link, loginValues);
 		localStorage.setItem('user', res.data);
 		dispatch({type: FETCH_USER, payload: res.data});
+		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 		console.log(error.response);
 	}
 };
@@ -142,8 +150,11 @@ export const signupUser = (signupValues) => async dispatch => {
 		const res = await axios.post(LinkKey('/api/user/signup'), signupValues);
 		localStorage.setItem('user', res.data);
 		dispatch({type: FETCH_USER, payload: res.data});
+		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
 	}catch(error) {
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 		console.log(error.response);
 	}
 	

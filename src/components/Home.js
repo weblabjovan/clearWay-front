@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import isUserLogged from '../utils/isUserLogged';
-import axiosAuth from '../utils/axiosAuth';
 import formStyles from '../styles/formStyles';
 
 
@@ -10,7 +9,6 @@ class Home extends Component {
 	async componentDidMount() {
 		console.log(await isUserLogged());
 		if (await isUserLogged()) {
-			//history.push('/dashboard', { some: 'state' });
 			this.props.login();
 		}
 	}

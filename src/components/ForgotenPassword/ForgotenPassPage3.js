@@ -3,10 +3,10 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import FlatButton from 'material-ui/FlatButton';
-import ErrorReporting from 'material-ui-error-reporting';
+import ErrorBar from '../Regulars/ErrorBar';
 import formStyles from '../../styles/formStyles';
 import buttonStyles from '../../styles/buttonStyles';
-import errorHandler from '../../utils/errorHandler';
+import isObjectEmpty from '../../utils/isObjectEmpty';
 import * as actions from '../../actions';
 import '../../css/mediaQueries.css';
 
@@ -15,27 +15,21 @@ class NewPassThree extends Component {
 	constructor() {
 		super();
 
-		this.errorOpen = false;
-		this.changeErrorOpen = this.changeErrorOpen.bind(this);
+		this.err = <div></div>;
 	}
 
 	shouldComponentUpdate(){
-		if (this.props.error.data && this.errorOpen) {
-			return true;
+		if (isObjectEmpty(this.props.error)) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 
-	changeErrorOpen(){
-		this.errorOpen = true;
-	}
-
-	getErrorOpen(){
-		return this.errorOpen;
-	}
-
-	closeError(){
-		this.errorOpen = false;
+	componentDidUpdate() {
+		this.err = <ErrorBar 
+					error={this.props.error.data}
+					page="Forget3"
+				/>
 		this.props.clearError();
 	}
 
@@ -43,7 +37,7 @@ class NewPassThree extends Component {
 
 		return(
 				<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.changePassword({email:this.props.email, password: this.props.newPassValues.password}))}>
-					<p className="paragraphGen">Create new password and confirm it in the fields bellow.</p>
+					<p className="paragraphGen">Kreirajte i potvrdite novu lozinku u poljima u nastavku.</p>
 					<Field
 						component={TextField}
 						name="password"
@@ -75,16 +69,9 @@ class NewPassThree extends Component {
 				    hoverColor="#24b35d"
 				    fullWidth= {true}
 				    labelStyle={buttonStyles.headerLabel}
-				    onClick={() => this.changeErrorOpen()}
 				   />
-
-				   <ErrorReporting
-	          open={this.getErrorOpen()}
-	          message={errorHandler(this.props.error.data, 'Forget3')}
-	          style={{backgroundColor:'#E24444'}}
-	          autoHideDuration={5000}
-	          onRequestClose={this.closeError()}
-	        />
+					{this.err}
+				
 				</form>
 		)
 	}
@@ -132,5 +119,5 @@ NewPassThree = connect(mapStateToProps, actions)(NewPassThree);
 
 export default reduxForm({
 	validate,
-    form: 'newPassValues' // a unique name for this form
+  form: 'newPassValues' // a unique name for this form
 })(NewPassThree);

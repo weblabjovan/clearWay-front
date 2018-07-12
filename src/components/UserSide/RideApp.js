@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DatePicker } from 'redux-form-material-ui';
 import * as actions from '../../actions';
 import history from '../../utils/history';
 import isObjectEmpty from '../../utils/isObjectEmpty';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import {
-  TextField, SelectField, DatePicker, Toggle
+  TextField, SelectField, Toggle
 } from 'redux-form-material-ui';
 import { MenuItem, FlatButton, RaisedButton } from 'material-ui';
 import formStyles from '../../styles/formStyles';
@@ -92,7 +92,7 @@ class Profile extends Component {
 				<h1 className="headlineGen">Tvoj profil</h1>
 				<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.updateUser(this.props.profile, this.state.photoFile))}>
 					<div style={formStyles.avatarContainer} >
-						<img src={avatar} style={formStyles.avatarImage} />
+						<img src={avatar} style={formStyles.avatarImage} alt="avatar"/>
 					</div>
 					<RaisedButton
 						onChange={this.onFileChange}

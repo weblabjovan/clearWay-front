@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/mediaQueries.css';
 
 const TextBox = (props) => {
 	return (

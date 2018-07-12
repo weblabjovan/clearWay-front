@@ -5,10 +5,10 @@ export default (error, page) => {
 
 	if (error === 'Unauthorized') {
 		if (page === 'Login') {
-			return 'No users with provided data.'
+			return 'Ne postoji korisnik sa unetim podacima.'
 		}
 		if (page === 'Signup') {
-			return 'User with this email already exist.'
+			return 'Korisnik sa unetim emailom već postoji.'
 		}
 	}
 

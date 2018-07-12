@@ -1,39 +1,46 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
+import FlatButton from 'material-ui/FlatButton';
+import { Link } from "react-router-dom";
+import ErrorBar from './Regulars/ErrorBar';
 import formStyles from '../styles/formStyles';
 import buttonStyles from '../styles/buttonStyles';
-import { connect } from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
-import * as actions from '../actions';
 import emailValidate from '../utils/emailValidate';
-import errorHandler from '../utils/errorHandler';
-import ErrorReporting from 'material-ui-error-reporting';
-import { Link } from "react-router-dom";
-import history from '../utils/history';
-import '../css/mediaQueries.css';
+import isObjectEmpty from '../utils/isObjectEmpty';
 import LinkKey from '../utils/linkKeys';
-import loaderControllor from '../utils/loaderControllor';
+import * as actions from '../actions';
+import '../css/mediaQueries.css';
+
 
 class Login extends Component {
-	
-	openError(reopen){
-		reopen = reopen || null
-		if (this.props.error.data && reopen) {
-			return true;
-		}
-		return false
+
+	constructor() {
+		super()
+
+		this.err = <div></div>;
 	}
 
-	componentDidMount(){
-		this.props.clearError();
-		loaderControllor('off');
+	shouldComponentUpdate(){
+		if (isObjectEmpty(this.props.error)) {
+			return false;
+		}
+		return true;
 	}
 
 	componentDidUpdate() {
-		if (typeof this.props.auth === 'string') {
-			history.push('/dashboard', { some: 'state' })
-		}
+		this.err = <ErrorBar 
+					error={this.props.error.data}
+					page="Login"
+				/>
+		this.props.clearError();
+
+	}
+
+
+	componentDidMount(){
+		this.props.clearError();
 	}
 
 	render(){
@@ -96,14 +103,9 @@ class Login extends Component {
 				    labelStyle={buttonStyles.headerLabel}
 				    style={buttonStyles.formButton}
 				/>
-				<ErrorReporting
-          open={this.openError(true)}
-          message={errorHandler(this.props.error.data, 'Login')}
-          style={{backgroundColor:'#E24444'}}
-          autoHideDuration={5000}
-          onRequestClose={this.openError()}
-        />
-
+				
+				
+				{this.err}
 			</div>
 			
 		);

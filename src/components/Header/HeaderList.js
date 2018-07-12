@@ -12,7 +12,7 @@ const HeaderList = (props) => {
 				 <Link to="/login">
 					<FlatButton 
 					style={buttonStyles.transparentButton}
-					label="Login"
+					label="Prijava"
 					hoverColor="#5e72a2"
 					labelStyle={buttonStyles.headerLabel} />
 				 </Link>
@@ -21,7 +21,7 @@ const HeaderList = (props) => {
 					<FlatButton 
 					style={buttonStyles.transparentButton}
 					hoverColor="#24b35d"
-					label="Sign up"
+					label="Registracija"
 					labelStyle={buttonStyles.headerLabel} />
 				 </Link>
 					
@@ -34,7 +34,7 @@ const HeaderList = (props) => {
 					onClick={() => props.logout()}
 					style={buttonStyles.transparentButton}
 					hoverColor="#5e72a2"
-					label="Logout"
+					label="Odjava"
 					labelStyle={buttonStyles.headerLabel} />
 	}
 	return(

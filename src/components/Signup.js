@@ -1,35 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
-import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
+import ErrorBar from './Regulars/ErrorBar';
 import formStyles from '../styles/formStyles';
 import buttonStyles from '../styles/buttonStyles';
-import FlatButton from 'material-ui/FlatButton';
-import * as actions from '../actions';
 import emailValidate from '../utils/emailValidate';
-import errorHandler from '../utils/errorHandler';
-import ErrorReporting from 'material-ui-error-reporting';
-import history from '../utils/history';
+import isObjectEmpty from '../utils/isObjectEmpty';
+import * as actions from '../actions';
+
 import '../css/mediaQueries.css';
 
 class Signup extends Component {
+	constructor() {
+		super();
+
+		this.err = <div></div>;
+	}
+
+	shouldComponentUpdate(){
+		if (isObjectEmpty(this.props.error)) {
+			return false;
+		}
+		return true;
+	}
 
 	componentDidUpdate() {
-		if (typeof this.props.auth === 'string') {
-			history.push('/dashboard', { some: 'state' })
-		}
+		this.err = <ErrorBar 
+					error={this.props.error.data}
+					page="Forget2"
+				/>
+		this.props.clearError();
 	}
 
 	componentDidMount(){
 		this.props.clearError();
-	}
-
-	openError(reopen){
-		reopen = reopen || null
-		if (this.props.error.data && reopen) {
-			return true;
-		}
-		return false
 	}
 
 	render() {
@@ -113,15 +119,7 @@ class Signup extends Component {
 				  labelStyle={buttonStyles.headerLabel}
 				  style={buttonStyles.formButton}
 			  />
-
-			  <ErrorReporting
-          open={this.openError(true)}
-          message={errorHandler(this.props.error.data, 'Signup')}
-          style={{backgroundColor:'#E24444'}}
-          autoHideDuration={5000}
-          onRequestClose={this.openError()}
-        />
-
+				{this.err}
 			</div>
 		);
 	}
@@ -132,25 +130,25 @@ function validate(values) {
 	const errors = {};
 
 	if (!values.sign_username) {
-		errors['sign_username'] = "Username is required";
+		errors['sign_username'] = "Korisničko ime je obavezno polje";
 	}
 	if (!emailValidate(values.sign_email)) {
-		errors['sign_email'] = "Valid email is required";
+		errors['sign_email'] = "Potrebno je upisati validan email";
 	}
 	if (!values.sign_email) {
-		errors['sign_email'] = "Email is required";
+		errors['sign_email'] = "Email ime je obavezno polje";
 	}
 	if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(values.sign_pass)) {
-		errors['sign_pass'] = "Password should contain 8 characters at least one letter, one number and one special character";
+		errors['sign_pass'] = "Lozinka treba da sadrži 8 karaktera najmanje jedno veliko slovo, jedan broj i jedan specijalni karakter.";
 	}
 	if (!values.sign_pass) {
-		errors['sign_pass'] = "Password is required";
+		errors['sign_pass'] = "Lozinka je obavezno polje";
 	}
 	if (values.sign_pass !== values.sign_repass) {
-		errors['sign_repass'] = "Password is not confirmed";
+		errors['sign_repass'] = "Lozinka nije potvrđena";
 	}
 	if (!values.sign_repass) {
-		errors['sign_repass'] = "Password is not confirmed";
+		errors['sign_repass'] = "Lozinka nije potvrđena";
 	}
 	
 

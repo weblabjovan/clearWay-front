@@ -1,5 +1,5 @@
 export default (user) => {
-	let result = { ... user};
+	let result = { ...user};
 	if (user.car) {
 		if (user.car.model) {
 			result.model = user.car.model;

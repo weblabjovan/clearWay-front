@@ -3,10 +3,10 @@ import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { TextField } from 'redux-form-material-ui';
 import FlatButton from 'material-ui/FlatButton';
-import ErrorReporting from 'material-ui-error-reporting';
+import ErrorBar from '../Regulars/ErrorBar';
 import formStyles from '../../styles/formStyles';
 import buttonStyles from '../../styles/buttonStyles';
-import errorHandler from '../../utils/errorHandler';
+import isObjectEmpty from '../../utils/isObjectEmpty';
 import * as actions from '../../actions';
 import '../../css/mediaQueries.css';
 
@@ -15,35 +15,30 @@ class NewPassTwo extends Component {
 	constructor() {
 		super();
 
-		this.errorOpen = false;
-		this.changeErrorOpen = this.changeErrorOpen.bind(this);
+		this.err = <div></div>;
 	}
 
 	shouldComponentUpdate(){
-		if (this.props.error.data && this.errorOpen) {
-			return true;
+		if (isObjectEmpty(this.props.error)) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 
-	changeErrorOpen(){
-		this.errorOpen = true;
-	}
-
-	getErrorOpen(){
-		return this.errorOpen;
-	}
-
-	closeError(){
-		this.errorOpen = false;
+	componentDidUpdate() {
+		this.err = <ErrorBar 
+					error={this.props.error.data}
+					page="Forget2"
+				/>
 		this.props.clearError();
 	}
 
 	render() {
+
 		return(
 
-				<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.checkPasscode({email:this.props.email, passcode: this.props.codeCheckValues.passcode}))}>
-					<p className="paragraphGen">We have sent you your security code. Please check your email and paste your code in the field bellow.</p>
+			<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.checkPasscode({email:this.props.email, passcode: this.props.codeCheckValues.passcode}))}>
+				<p className="paragraphGen">Na email vam je poslat sigurnosni kod, molim vas kopirajte kod i unesite ga u polje u nastavku.</p>
 					<Field
 						component={TextField}
 						name="passcode"
@@ -63,26 +58,16 @@ class NewPassTwo extends Component {
 				    hoverColor="#24b35d"
 				    fullWidth= {true}
 				    labelStyle={buttonStyles.headerLabel}
-				    onClick={() => this.changeErrorOpen()}
 				   />
-
-				   <ErrorReporting
-	          open={this.getErrorOpen()}
-	          message={errorHandler(this.props.error.data, 'Forget2')}
-	          style={{backgroundColor:'#E24444'}}
-	          autoHideDuration={5000}
-	          onRequestClose={this.closeError()}
-	        />
-				</form>	
+					{this.err}
+				   
+			</form>	
 		)
 	}
 }
 
 function getValues(state) {
-	const def = {
-		email: "",
-		passcode: ""
-	}
+	const def = {};
 
 	if (state.form.hasOwnProperty('codeCheckValues')) {
 		if (state.form.codeCheckValues.hasOwnProperty('values')) {
@@ -95,9 +80,15 @@ function getValues(state) {
 
 function validate(values) {
 	const errors = {};
-	if (!values.passcode) {
-		errors['passcode'] = "Code is required";
+	if (values.passcode) {
+		if (values.passcode.length != 8) {
+			errors['passcode'] = "Potrebno je upisati validan sigurnosni kod";
+		}
 	}
+
+	if (!values.passcode) {
+			errors['passcode'] = "Potrebno je upisati validan sigurnosni kod";
+		}
 	
 	return errors;
 }
