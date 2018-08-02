@@ -4,16 +4,42 @@ import {reset} from 'redux-form';
 import history from '../utils/history';
 import LinkKey from '../utils/linkKeys';
 import loaderControllor from '../utils/loaderControllor';
-import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RESERVATION } from'./types';
+import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RIDE } from'./types';
+
+export const changeReservationStatus = (changeData) => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.post(LinkKey('/api/ride/reservationStatusChange'), changeData);
+		dispatch({type:INFO_RIDE, payload: res.data});
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
+
+export const getAllMyRides = () => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.get(LinkKey('/api/ride/myRides'));
+		dispatch({type:INFO_RIDE, payload: res.data});
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
 
 export const saveReservation = (reservationData) => async dispatch => {
 	loaderControllor('on');
 	try{
-		const res = await axios.post(LinkKey('/api/reservation/save'), reservationData);
-		dispatch({type:INFO_RESERVATION, payload: res.data});
+		const res = await axios.post(LinkKey('/api/ride/save'), reservationData);
+		dispatch({type:INFO_RIDE, payload: res.data});
 		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 
@@ -21,14 +47,41 @@ export const setApplicationRoute = (searchData) => dispatch => {
 	dispatch({type:INFO_SEARCH, payload: searchData});
 }
 
-export const searchRoutes = (routeData) => async dispatch => {
+export const deleteRoute = (routeId) => async dispatch => {
 	try{
-		const res = await axios.post(LinkKey('/api/route/search'), routeData);
-		dispatch({type:SEARCH_ROUTE, payload: res.data})
+		const res = await axios.post(LinkKey('/api/route/delete'), routeId);
+		dispatch({type:CREATE_ROUTE, payload: res.data});
+		loaderControllor('off');
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
+
+export const searchRoutes = (routeData) => async dispatch => {
+	loaderControllor('on');
+	try{
+		routeData.dateString = routeData.date.toISOString();
+		const res = await axios.post(LinkKey('/api/route/search'), routeData);
+		dispatch({type:SEARCH_ROUTE, payload: res.data});
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 	
+}
+
+export const getAllMyRouts = () => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.get(LinkKey('/api/route/myRoutes'));
+		dispatch({type:CREATE_ROUTE, payload: res.data});
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
 }
 
 export const updateUser = (userData, photo) => async dispatch => {
@@ -56,9 +109,9 @@ export const clearRouteForm = () => dispatch => {
 	dispatch(reset('routeInfo'));
 }
 
-export const getRouteForApplication = (routeId) => async dispatch => {
+export const getRouteForApplication = (routeData) => async dispatch => {
 	try{
-		const res = await axios.post(LinkKey('/api/route/getRouteForApplication'), routeId);
+		const res = await axios.post(LinkKey('/api/route/getRouteForApplication'), routeData);
 		dispatch({type: CREATE_ROUTE, payload: res.data});
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
@@ -66,11 +119,15 @@ export const getRouteForApplication = (routeId) => async dispatch => {
 }
 
 export const saveRoute = (routeData) => async dispatch => {
+	loaderControllor('on');
 	try{
 		const res = await axios.post(LinkKey('/api/route/save'), routeData);
 		dispatch({type: CREATE_ROUTE, payload: res.data});
+		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 

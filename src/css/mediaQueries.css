@@ -3,6 +3,15 @@
     color: #969696;
 }
 
+.emptyHeadline{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #4e6a9a;
+    line-height: 28px;
+    font-weight: 400;
+    margin: 35px 0px;
+}
+
 .master-container{
     position: relative;
 }
@@ -43,6 +52,9 @@
     	margin-top: 7px !important;
     }
 }
+
+
+
 
 .search-headline{
     font-family: 'Roboto', sans-serif;
@@ -132,6 +144,9 @@
         margin-top: 15px !important;
     }
 
+
+
+
 .applicationItem{
     padding: 15px 0px;
 }
@@ -190,6 +205,190 @@
                 margin-left: 6px;
                 line-height: 19px;
             }
+
+
+.routeItem{
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin: 15px 0px;
+
+}
+    .routeItem .small{
+        display: block;
+        background: #4e6a9a;
+    }
+        .routeItem .small .left{
+            float: left;
+            background-color: #4e6a9a;
+            width: 30%;
+        }
+        .routeItem .small .right{
+            float: right;
+            width: 70%;
+            background: #969696;
+        }
+        .routeItem .small h3{
+            color: #fff;
+            margin: 0px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .routeItem .small span{
+            color: #fff;
+            font-size: 14px;
+            font-weight: 300;
+        }
+        .routeItem .small h5{
+            color: #fff;
+            margin: 0px;
+            font-size: 14px;
+            line-height: 25px;
+            font-weight: 300;
+        }
+
+    .routeItem .large{
+        display: block;
+        box-sizing: border-box;
+        padding: 10px 5px;
+    }
+        .routeItem .large .box{
+            float: left;
+            width: 35%;
+        }
+            .routeItem .large .box h5{
+                color: #0e0e0e;
+                font-weight: 400;
+                font-size: 14px;
+                margin: 0px;
+                line-height: 20px;
+            }
+        .routeItem .large .middle{
+            float: left;
+            width: 30%;
+        }
+            .routeItem .large .middle span{
+                font-size: 14px;
+                display: block;
+                font-weight: 300;
+                color: #4e6a9a;
+                margin-top: -10px;
+            }
+
+.ridesItem{
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    box-shadow: 0px 0px 8px 1px rgba(77,75,77,1);
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin: 15px 0px;
+}
+    .ridesItem .date{
+        background: #4e6a9a;
+    }
+        .ridesItem .date h5{
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0px;
+            color: #fff;
+            line-height: 37px;
+        }
+
+    .ridesItem .general{
+        border-bottom: solid 1px #ccc;
+        border-top: solid 1px #ccc;
+    }
+        .ridesItem .general .person{
+            padding-top: 10px;
+             padding-bottom: 5px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+            .ridesItem .general .person .photo-container{
+                width: 50px;
+                display: inline-block;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+                .ridesItem .general .person .photo-container .photo{
+                    max-width: 100%;
+                }
+
+            .ridesItem .general .person .info{
+                 display: inline-block;
+                 vertical-align: top;
+                 padding: 0px 10px;
+            }
+
+                .ridesItem .general .person .info h5{
+                    margin: 4px;
+                    font-size: 16px;
+                    font-weight: 800;
+                    color: #000;
+                }
+
+                .ridesItem .general .person .info h3{
+                    margin: 5px;
+                    font-size: 20px;
+                    font-weight: 800;
+                    color: #43c978;
+                }
+
+        .ridesItem .general .sent{
+            background: #b3b2b2;
+        }
+
+        .ridesItem .general .accepted{
+            background: #43c978;
+        }
+
+        .ridesItem .general .declined{
+            background: #F44336;
+        }
+
+        .ridesItem .general .canceled{
+            background: #F44336;
+        }
+            .ridesItem .general .status h3{
+                 margin: 0px;
+                color: #fff;
+                font-size: 22px;
+                line-height: 40px;
+            }
+
+    .ridesItem .ride{
+        display: block;
+        box-sizing: border-box;
+        padding: 10px 5px;
+    }
+        .ridesItem .ride .box{
+            float: left;
+            width: 35%;
+        }
+            .ridesItem .ride .box h5{
+                color: #0e0e0e;
+                font-weight: 400;
+                font-size: 14px;
+                margin: 0px;
+                line-height: 20px;
+            }
+        .ridesItem .ride .middle{
+            float: left;
+            width: 30%;
+        }
+            .ridesItem .ride .middle span{
+                font-size: 14px;
+                display: block;
+                font-weight: 300;
+                color: #4e6a9a;
+                margin-top: -10px;
+            }
+    .ridesItem .action{
+        padding: 5px;
+    }
 
 .loader{
     position: absolute;

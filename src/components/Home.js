@@ -4,7 +4,6 @@ import * as actions from '../actions';
 import isUserLogged from '../utils/isUserLogged';
 import formStyles from '../styles/formStyles';
 
-
 class Home extends Component {
 	async componentDidMount() {
 		console.log(await isUserLogged());

@@ -3,26 +3,34 @@ import { connect } from 'react-redux';
 import buttonStyles from '../../../styles/buttonStyles';
 import FlatButton from 'material-ui/FlatButton';
 import RouteDirectionsMap from './RouteDirectionsMap';
+import ErrorBar from '../../Regulars/ErrorBar';
 import * as actions from '../../../actions';
-import history from '../../../utils/history';
-
 class RoutesMap extends Component {
 
 	constructor(){
 		super();
 
 		this.clearWaypoints = this.clearWaypoints.bind(this);
+		this.err = <div></div>; 
+
 	}
 
 	async clearWaypoints() {
-		console.log(this.props.routeInfo.time);
+		if (typeof this.props.routeInfo.date == 'object') {
+			this.props.routeInfo.dateString = this.props.routeInfo.date.toString();
+		}
 		const routeData = {routeInfo: this.props.routeInfo, waypoints: this.getWaypoints(), steps: this.getSteps()};
 		await this.props.saveRoute(routeData);
-		localStorage.removeItem('routeDirections');
-		localStorage.removeItem('routeSteps');
-
-		if (typeof this.props.result === 'string') {
-			history.push('/dashboard', { some: 'state' });
+		
+		if (this.props.error.status === 500) {
+			this.err = <ErrorBar 
+					error={this.props.error.data}
+					page="Routes"
+				/>
+		this.props.clearError();
+		}else{
+			localStorage.removeItem('routeDirections');
+			localStorage.removeItem('routeSteps');
 			this.props.clearRouteForm();
 		}
 	}
@@ -70,6 +78,7 @@ class RoutesMap extends Component {
 				    labelStyle={buttonStyles.headerLabel}
 				    onClick={this.clearWaypoints}
 				/>
+				{this.err}
 			</div>
 			
 		);
@@ -78,7 +87,7 @@ class RoutesMap extends Component {
 }
 
 function mapStateToProps(state){
-	return {routeInfo: state.form.routeInfo.values, result: state.routeInfo};
+	return {routeInfo: state.form.routeInfo.values, error: state.error};
 }
 
 export default RoutesMap = connect(mapStateToProps, actions)(RoutesMap);

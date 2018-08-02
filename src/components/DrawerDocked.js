@@ -28,7 +28,7 @@ export default class DrawerDocked extends React.Component {
 	          <Link to="/profile" style={{ textDecoration: 'none' }}>
 	            <MenuItem style={headerStyles.drawerLink} >Profil</MenuItem>
 	          </Link>
-	          <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+	          <Link to="/rides" style={{ textDecoration: 'none' }}>
 	            <MenuItem  style={headerStyles.drawerLink} >Moje vožnje</MenuItem>
 	          </Link>
 	          <Link to="/routes" style={{ textDecoration: 'none' }}>

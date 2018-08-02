@@ -6,25 +6,33 @@ import SearchItem from './SearchItem';
 
 class SearchResult extends Component {
 
+
 	displayResults() {
-		console.log(this.props.routeInfo);
 		if (this.props.routeInfo.length > 0 && typeof this.props.routeInfo === "object") {
-			return(
-				this.props.routeInfo.map( (route, index) => {
-					return (
-						<SearchItem 
-							key={index} 
-							name={route.userObj.name}
-							start={route.start}
-							end={route.end}
-							time={route.time}
-							price={route.price}
-							car={route.userObj.car.model + ', ' + route.userObj.car.modelNumber + ', ' + route.userObj.car.modelYear}
-							button={() => this.props.setApplicationRoute(route._id)}
-						/>
-					)
-				})
-			);
+			if (this.props.routeInfo[0].userObj) {
+				return(
+					this.props.routeInfo.map( (route, index) => {
+						let car = 'trenutno nepoznato';
+						if (route.userObj.car) {
+							car = route.userObj.car.model + ', ' + route.userObj.car.modelNumber + ', ' + route.userObj.car.modelYear;
+						}
+						return (
+							<SearchItem 
+								key={index} 
+								name={route.userObj.name}
+								start={route.start}
+								end={route.end}
+								time={route.time}
+								price={route.price}
+								car={car}
+								button={() => this.props.setApplicationRoute(route._id)}
+							/>
+						)
+					})
+				);
+			}else{
+				return(<h3 className="search-headline">Popunite parametre za pretragu</h3>);
+			}	
 		}else{
 			if (this.props.routeInfo.length === undefined) {
 				return(<h3 className="search-headline">Popunite parametre za pretragu</h3>);

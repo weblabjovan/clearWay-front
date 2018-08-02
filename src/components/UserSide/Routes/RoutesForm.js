@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import {
   TimePicker,
+  DatePicker,
   SelectField,
   Slider,
   TextField,
@@ -30,6 +31,9 @@ class RoutesForm extends Component {
 	}
 
 	componentDidMount() {
+		if (this.props.routeInfo.frequency === '2') {
+			document.getElementById('singleDate').style.display = 'block';
+		};
 		var start = this.refs.Start.getRenderedComponent().refs.component.input;
 		var end = this.refs.End.getRenderedComponent().refs.component.input;
 		start.placeholder = "";
@@ -49,6 +53,14 @@ class RoutesForm extends Component {
 			});
       //console.log('Google Maps Loaded')
     })
+	}
+
+	handleFreqChange(value) {
+			if (value[0] == 2) {
+				document.getElementById('singleDate').style.display = 'block';
+			}else{
+				document.getElementById('singleDate').style.display = 'none';
+			}
 	}
 
 	clearLocal(){
@@ -151,13 +163,24 @@ class RoutesForm extends Component {
 	            labelStyle={formStyles.selectLabelStyle}
 	            floatingLabelStyle={formStyles.selectFloatingLabelStyle}
 	            floatingLabelText="Učestalost prevoza"
+	            onChange={(value) => this.handleFreqChange(value)}
 	          >
-	          	<MenuItem value="1" primaryText="Samo danas" />
-	          	<MenuItem value="2" primaryText="Samo sutra" />
+	          	<MenuItem value="2" primaryText="Samo jedna vožnja" />
 	          	<MenuItem value="3" primaryText="Svakog dana" />
 	            <MenuItem value="4" primaryText="Svakog radnog dana" />
 	            <MenuItem value="5" primaryText="Samo vikendom" />
 	          </Field>
+	        </div>
+
+	        <div style={{display: 'none'}} id="singleDate">
+						<Field
+	            name="date"
+	            component={DatePicker}
+	            minDate={new Date()}
+	            fullWidth= {true}
+	            format={null}
+	            hintText="Na dan"
+	          />
 	        </div>
 
 	        <div>
@@ -174,7 +197,17 @@ class RoutesForm extends Component {
 	          />
 	        </div>
 
-					<FlatButton
+				   <FlatButton
+				  	label="NAZAD"
+				    backgroundColor="#4885ed"
+				    hoverColor="#4377d0"
+				    fullWidth= {true}
+				    labelStyle={buttonStyles.headerLabel}
+				    onClick={() => this.props.onBack()}
+				   />
+						<br/>
+						<br/>
+				   <FlatButton
 						type="submit"
 				  	label="DALJE"
 				    backgroundColor="#43c978"
@@ -231,6 +264,12 @@ function validate(values) {
 	if (!values.time) {
 		errors['time'] = "Broj slobodnih mesta je obavezno polje";
 	}
+
+	if (values.frequency == 2) {
+		if (!values.date) {
+			errors['date'] = "U slučaju pojedinačne vožnje, na dan je obavezno polje";
+		};
+	};
 
 	return errors;
 }

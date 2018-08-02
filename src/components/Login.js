@@ -35,7 +35,6 @@ class Login extends Component {
 					page="Login"
 				/>
 		this.props.clearError();
-
 	}
 
 
