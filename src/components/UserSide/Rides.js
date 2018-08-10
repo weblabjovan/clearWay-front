@@ -34,13 +34,18 @@ class Rides extends Component {
 	displayPassanger() {
 		if (!isObjectEmpty(this.props.rides) && typeof this.props.rides === 'object') {
 			if (this.props.rides.passanger.length > 0 && this.props.rides.passanger.length != undefined) {
+				console.log(this.props.rides.passanger);
 				return(
 					this.props.rides.passanger.map( (ride, index) => {
 						const date = new Date(ride.date);
 						let car = 'unknown';
+						let rate = 1;
+						if (ride.route.userObj.driverNo != 0) {
+							rate = ride.route.userObj.driverSumm / ride.route.userObj.driverNo;
+						}
 						if (ride.route.userObj.car) {
 							car = ride.route.userObj.car.model;
-						};
+						}
 						return (
 							<RideSingle 
 								key={index} 
@@ -57,6 +62,7 @@ class Rides extends Component {
 								resId={ride.reservations[0]._id}
 								change={ride.reservations[0].statusChange}
 								reservationChange={this.reservationChangeStatus}
+								driverRate={rate.toFixed(1)}
 							/>
 						)
 					})

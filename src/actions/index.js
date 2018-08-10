@@ -4,7 +4,46 @@ import {reset} from 'redux-form';
 import history from '../utils/history';
 import LinkKey from '../utils/linkKeys';
 import loaderControllor from '../utils/loaderControllor';
-import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RIDE } from'./types';
+import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RIDE, INFO_NOTIFICATION, INFO_RATE } from'./types';
+
+export const saveRatings = (ratingData) => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.post(LinkKey('/api/rating/save'), ratingData);
+		dispatch({type:INFO_RATE, payload: res.data});
+		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
+
+export const openThisRating = (id, type) => async dispatch =>{
+	loaderControllor('on');
+	const ratingData = {id, type};
+	try{
+		const res = await axios.post(LinkKey('/api/rating/getThis'), ratingData);
+		dispatch({type:INFO_RATE, payload: res.data});
+		history.push('/rating', { some: 'state' });
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
+
+export const getAllMyNotifications = () => async dispatch => {
+	loaderControllor('on');
+	try{
+		const res = await axios.get(LinkKey('/api/notification/myNotifications'));
+		dispatch({type:INFO_NOTIFICATION, payload: res.data});
+		loaderControllor('off');
+	}catch(error){
+		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
+	}
+}
 
 export const changeReservationStatus = (changeData) => async dispatch => {
 	loaderControllor('on');

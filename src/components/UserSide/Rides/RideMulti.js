@@ -26,6 +26,10 @@ class RideMulti extends Component {
 
 				{ 
 					this.props.reservations.map( (res, index) => {
+						let rate = 1;
+						if (res.userObj.passengerNo != 0) {
+							rate = res.userObj.passengerSumm / res.userObj.passengerNo;
+						};
 						return (
 
 							<RideItem 
@@ -38,6 +42,7 @@ class RideMulti extends Component {
 								change={res.statusChange}
 								accept={() => this.props.reservationChange(res._id, 'accepted')}
 								decline={() => this.props.reservationChange(res._id, 'declined')}
+								rate={rate.toFixed(1)}
 							/>
 						)
 					})

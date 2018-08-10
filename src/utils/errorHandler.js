@@ -10,6 +10,9 @@ export default (error, page) => {
 		if (page === 'Signup') {
 			return 'Korisnik sa unetim emailom već postoji.'
 		}
+		if (page === 'Rating') {
+			return 'Nisu označene sve ocene.'
+		}
 	}
 
 	return error.error;

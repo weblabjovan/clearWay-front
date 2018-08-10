@@ -52,7 +52,7 @@ class RideItem extends Component {
 							<div className="info">
 								<h5>{this.props.user}</h5>
 								<h5>{this.props.car}</h5>
-								<h3>4.5</h3>
+								<h3>{this.props.driverRate}</h3>
 							</div>
 							
 						</div>

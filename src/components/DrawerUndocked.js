@@ -1,13 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Badge from 'material-ui/Badge';
 import { Link } from "react-router-dom";
 import avatar from '../avatar.png';
 import headerStyles from '../styles/headerStyles';
+import isObjectEmpty from '../utils/isObjectEmpty';
 
-export default class DrawerUndocked extends React.Component {
+class DrawerUndocked extends React.Component {
 
   getMenuItemList() {
+    let notification = "";
+    if (!isObjectEmpty(this.props.notification)) {
+      notification = <Badge 
+                    badgeContent={this.props.notification.length}
+                    primary={true}
+                    style={{float:'right', marginTop:'10px', marginRight:'10px'}}
+                  />
+    }
     if (this.props.auth) {
       return (
         <div>
@@ -29,6 +41,12 @@ export default class DrawerUndocked extends React.Component {
           </Link>
            <Link to="/search" style={{ textDecoration: 'none' }}>
             <MenuItem onClick={() => this.props.handleDrawerClose()} style={headerStyles.drawerLink} >Pronađi prevoz</MenuItem>
+          </Link>
+          <Link to="/notifications" style={{ textDecoration: 'none' }}>
+            <MenuItem onClick={() => this.props.handleDrawerClose()} style={headerStyles.drawerLink} >
+              Obaveštenja
+              {notification}
+            </MenuItem>
           </Link>
           <Link to="/messages" style={{ textDecoration: 'none' }}>
             <MenuItem onClick={() => this.props.handleDrawerClose()} style={headerStyles.drawerLink} >Poruke</MenuItem>
@@ -71,3 +89,9 @@ export default class DrawerUndocked extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {notification: state.notification, auth: state.auth, error: state.error };
+}
+
+export default connect(mapStateToProps, actions)(DrawerUndocked);

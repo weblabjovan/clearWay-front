@@ -10,7 +10,9 @@ import Home from './Home';
 import Dashboard from './UserSide/Dashboard';
 import Routes from './UserSide/Routes';
 import Rides from './UserSide/Rides';
+import Ratings from './UserSide/Ratings';
 import Messages from './UserSide/Messages';
+import Notifications from './UserSide/Notifications';
 import Search from './UserSide/Search';
 import RideApp from './UserSide/RideApp';
 import Profile from './UserSide/Profile';
@@ -129,6 +131,18 @@ class AuthComponent extends Component {
               <Route path="/messages" render={({match}) => {
                 return(
                   <Messages login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/notifications" render={({match}) => {
+                return(
+                  <Notifications login={this.authLogged} match={match} />
+                )
+              }} />
+
+              <Route path="/rating" render={({match}) => {
+                return(
+                  <Ratings login={this.authLogged} match={match} />
                 )
               }} />
 

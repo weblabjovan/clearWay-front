@@ -3,6 +3,13 @@
     color: #969696;
 }
 
+.interHead{
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    color: #969696;
+    margin: 0px;
+}
+
 .emptyHeadline{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
@@ -389,6 +396,158 @@
     .ridesItem .action{
         padding: 5px;
     }
+
+
+.notificationItem{
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    border: solid 2px #4e6a9a;
+    margin-top: 15px;
+    padding: 0px;
+}
+    .notificationItem .title{
+        padding: 5px 10px;
+        box-sizing: border-box;
+        background: #4e6a9a;
+    }
+        .notificationItem .title .type{
+            float: left;
+            width: 25%;
+        }
+
+        .notificationItem .title .text{
+            float: left;
+            width: 75%;
+            display: table;
+            height: 34px;
+        }
+            .notificationItem .title .text h3{
+                margin: 0px;
+                color: #fff;
+                font-size: 16px;
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+    .notificationItem .subject{
+        padding: 10px;
+        box-sizing: border-box;
+    }
+        .notificationItem .subject .text{
+
+        }
+            .notificationItem .subject .text h5{
+                 margin: 0px;
+                 margin-bottom: 10px;
+                 font-size: 14px;
+                 font-weight: 800;
+            }
+            .notificationItem .subject .text p{
+                font-size: 14px;
+                margin: 0px;
+                text-align: justify;
+            }
+
+        .notificationItem .subject .actions{
+
+        }
+
+.passengerInfo{
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: solid 1px #ccc;
+    
+}
+
+    .passengerInfo .person{
+        box-sizing: border-box;
+        padding: 5px;
+    }
+
+        .passengerInfo .person .image{
+            float: left;
+            width: 30%;
+        }
+
+            .passengerInfo .person .photo-container{
+                width: 50px;
+                display: inline-block;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+                .passengerInfo .person .photo-container .photo{
+                    max-width: 100%;
+                }
+
+        .passengerInfo .info{
+            float: left;
+            width: 70%;
+        }
+
+            .passengerInfo .info h5{
+                margin: 4px;
+                font-size: 16px;
+                font-weight: 800;
+                color: #000;
+            }
+
+            .passengerInfo .info h3{
+                margin: 5px;
+                font-size: 20px;
+                font-weight: 800;
+                color: #43c978;
+            }
+
+    .passengerInfo .ride{
+        box-sizing: border-box;
+        padding: 5px;
+        border-top: solid 1px #ccc;
+    }
+
+        .passengerInfo .ride .box{
+           float: left;
+            width: 35%;
+        }
+                .passengerInfo .ride .box h5{
+                    color: #0e0e0e;
+                    font-weight: 400;
+                    font-size: 14px;
+                    margin: 0px;
+                    line-height: 20px;
+                }
+            .passengerInfo .ride .middle{
+                float: left;
+                width: 30%;
+            }
+                .passengerInfo .ride .middle span{
+                    font-size: 14px;
+                    display: block;
+                    font-weight: 300;
+                    color: #4e6a9a;
+                    margin-top: -10px;
+                }
+.surveyItem{
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border: none;
+}
+    .surveyItem .question{
+        padding: 5px;
+        box-sizing: border-box;
+    }
+        .surveyItem .question h5{
+            margin: 0px;
+            font-weight: 400;
+            text-align: justify;
+            line-height: 18px;
+            font-size: 14px;
+        }
 
 .loader{
     position: absolute;

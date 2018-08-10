@@ -12,7 +12,7 @@ const SearchItem = (props) => {
 					<img src={avatar} alt="avatar"/>
 				</div>
 				<span className="name">{props.name}</span>
-				<span className="rate">4.7</span>
+				<span className="rate">{props.rate}</span>
 			</div>
 			<div className="side r-side">
 				<div className="row">

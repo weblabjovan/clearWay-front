@@ -16,6 +16,10 @@ class SearchResult extends Component {
 						if (route.userObj.car) {
 							car = route.userObj.car.model + ', ' + route.userObj.car.modelNumber + ', ' + route.userObj.car.modelYear;
 						}
+						let rate = 1;
+						if (route.userObj.driverNo != 0) {
+							rate = route.userObj.driverSumm / route.userObj.driverNo;
+						}
 						return (
 							<SearchItem 
 								key={index} 
@@ -26,6 +30,7 @@ class SearchResult extends Component {
 								price={route.price}
 								car={car}
 								button={() => this.props.setApplicationRoute(route._id)}
+								rate={rate.toFixed(1)}
 							/>
 						)
 					})
