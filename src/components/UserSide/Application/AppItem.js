@@ -4,14 +4,15 @@ import avatar from '../../../avatar.png';
 import { FlatButton } from 'material-ui';
 
 const AppItem = (props) => {
+	console.log(props);
 	return (
 		<div className="applicationItem">
 			<div className="user">
 				<div className="image">
-					<img src={avatar} alt="avatar"/>
+					<img src={props.photo ? props.photo : avatar} alt="avatar"/>
 				</div>
 				<span className="name">{props.name}</span>
-				<span className="rate">4.7</span>
+				<span className="rate">{props.rate}</span>
 			</div>
 
 			<div className="info">

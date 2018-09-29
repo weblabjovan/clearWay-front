@@ -9,7 +9,7 @@ const SearchItem = (props) => {
 		<div className="searchItem">
 			<div className="side l-side">
 				<div className="image">
-					<img src={avatar} alt="avatar"/>
+					<img src={props.photo ? props.photo : avatar} alt="avatar"/>
 				</div>
 				<span className="name">{props.name}</span>
 				<span className="rate">{props.rate}</span>

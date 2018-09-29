@@ -26,15 +26,13 @@ class RideMulti extends Component {
 
 				{ 
 					this.props.reservations.map( (res, index) => {
-						let rate = 1;
-						if (res.userObj.passengerNo != 0) {
-							rate = res.userObj.passengerSumm / res.userObj.passengerNo;
-						};
+						
 						return (
 
 							<RideItem 
 								key={index}
 								name={res.userObj.username}
+								photo={res.userObj.photo ? `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${res.userObj.photo}` : ''}
 								status={res.status}
 								start={res.start}
 								end={res.end}
@@ -42,7 +40,7 @@ class RideMulti extends Component {
 								change={res.statusChange}
 								accept={() => this.props.reservationChange(res._id, 'accepted')}
 								decline={() => this.props.reservationChange(res._id, 'declined')}
-								rate={rate.toFixed(1)}
+								rate={res.userObj.passengerNo ? (res.userObj.passengerSumm / res.userObj.passengerNo).toFixed(1) : 1}
 							/>
 						)
 					})

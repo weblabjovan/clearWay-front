@@ -27,6 +27,7 @@ class Profile extends Component {
 
 		this.state = {
 			userType: 'Putnik',
+			userPhoto: avatar,
 			photoFile: null
 		}
 	}
@@ -79,6 +80,11 @@ class Profile extends Component {
 			})
 			document.getElementById("driverForm").style.display = 'block';
 		}
+		if (user.data.photo) {
+			this.setState({
+				userPhoto: `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${user.data.photo}`
+			})
+		};
 
 		this.props.initialize(fillProfile(user.data));
 	}
@@ -92,7 +98,7 @@ class Profile extends Component {
 				<h1 className="headlineGen">Tvoj profil</h1>
 				<form style={formStyles.form} onSubmit={this.props.handleSubmit(() => this.props.updateUser(this.props.profile, this.state.photoFile))}>
 					<div style={formStyles.avatarContainer} >
-						<img src={avatar} style={formStyles.avatarImage} alt="avatar"/>
+						<img src={this.state.userPhoto} style={formStyles.avatarImage} alt="avatar"/>
 					</div>
 					<RaisedButton
 						onChange={this.onFileChange}
@@ -220,7 +226,7 @@ class Profile extends Component {
 	          </div>
 
 	          <FlatButton
-							type="submit"
+						type="submit"
 					  	label="SAČUVAJ"
 					    backgroundColor="#43c978"
 					    hoverColor="#24b35d"

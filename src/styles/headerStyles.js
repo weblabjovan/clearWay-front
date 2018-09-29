@@ -10,10 +10,17 @@ const headerStyles = {
 		lineHeight: '25px'
 	},
 	headerImage: {
-		maxWidth: '100%'
+		maxWidth: '100%',
+	},
+	profileImage: {
+		maxWidth: '100%',
+		height:'100%',
+		borderRadius: '50%'
 	},
 	profileContainer: {
 		width: '50px',
+		height: '50px',
+		textAlign: 'center',
 		margin: 'auto',
 		padding: '20px 0px'
 	},

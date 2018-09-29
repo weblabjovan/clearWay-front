@@ -81,7 +81,7 @@ function getValues(state) {
 function validate(values) {
 	const errors = {};
 	if (values.passcode) {
-		if (values.passcode.length != 8) {
+		if (values.passcode.length !== 8) {
 			errors['passcode'] = "Potrebno je upisati validan sigurnosni kod";
 		}
 	}

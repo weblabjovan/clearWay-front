@@ -5,7 +5,7 @@ import frequencyConvert from '../../../utils/frequencyConvert';
 
 const RoutesItem = (props) => {
 	let freq = frequencyConvert(props.frequency);
-	if (props.freqency == 2) {
+	if (props.freqency === 2) {
 		freq = freq + ' ' + props.date;
 	}
 

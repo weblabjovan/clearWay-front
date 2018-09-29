@@ -12,10 +12,10 @@ class Notifications extends Component {
 
 	displayNotifications() {
 		if (!isObjectEmpty(this.props.notification) && typeof this.props.notification === 'object') {
-			if (this.props.notification.length > 0 && this.props.notification.length != undefined) {
+			if (this.props.notification.length > 0 && this.props.notification.length !== undefined) {
 				return(
 					this.props.notification.map( (notification, index) => {
-						const date = new Date(parseInt(notification.createDate));
+						const date = new Date(parseInt(notification.createDate, 10));
 						let title = 'Ocenjivanje vožnje';
 						let text = 'Popuniti kratki upitnik za ocenjivanje vožnje (samo 3 stavke) i na taj način izrazite nivo vašeg zadovoljstva uslugom i omogućite sebi dalje besplatno korišćenje ClearWay aplikacije.';
 						let buttonText = 'Ocenite vožnju';

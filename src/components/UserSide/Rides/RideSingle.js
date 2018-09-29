@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import TrendingFlat from 'material-ui/svg-icons/action/trending-flat';
-import Done from 'material-ui/svg-icons/action/done';
 import Clear from 'material-ui/svg-icons/content/clear';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import statusSwitcher from '../../../utils/statusSwitcher';
-import buttonStyles from '../../../styles/buttonStyles';
 import avatar from '../../../avatar.png';
 
 class RideItem extends Component {
@@ -47,7 +45,7 @@ class RideItem extends Component {
 					<div className="general">
 						<div className="person">
 							<div className="photo-container" >
-								<img src={avatar} className="photo" alt="avatar"/>
+								<img src={this.props.photo ? this.props.photo : avatar} className="photo" alt="avatar"/>
 							</div>
 							<div className="info">
 								<h5>{this.props.user}</h5>
@@ -67,7 +65,6 @@ class RideItem extends Component {
 						</div>
 						<div className="middle">
 							<TrendingFlat style={{color:'#43c978', height: '42px', width: '42px', marginTop:'-5px'}} />
-							<span>popust 20%</span>
 						</div>
 						<div className="box">
 							<h5>{this.props.end}</h5>

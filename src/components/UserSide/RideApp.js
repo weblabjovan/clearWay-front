@@ -25,10 +25,12 @@ class RideApp extends Component {
 	displayItem(){
 		if (this.props.route.length === undefined && !isObjectEmpty(this.props.route)) {
 			const d = new Date(this.props.route.rideDate);
+
 			return(
 				<AppItem 
-					name={this.props.route.userObj.name}
+					name={this.props.route.userObj.username}
 					start={this.props.route.start}
+					photo={this.props.route.userObj.photo ? `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${this.props.route.userObj.photo}` : ''}
 					end={this.props.route.end}
 					price={this.props.route.price}
 					time={this.props.route.rideStart}
@@ -36,6 +38,7 @@ class RideApp extends Component {
 					distance={Math.round(this.props.route.startDistance)}
 					duration={this.props.route.rideTime}
 					discount={this.props.route.rideDiscount}
+					rate={this.props.route.userObj.driverNo ? (this.props.route.userObj.driverSumm / this.props.route.userObj.driverNo).toFixed(1) : 1}
 					send={() => this.sendReservation()}
 				/>
 			)

@@ -6,4 +6,5 @@ function trueDate() {
 	return day + '.' + month + '.' + year;
 }
 
+//eslint-disable-next-line
 Date.prototype.trueDate = trueDate;

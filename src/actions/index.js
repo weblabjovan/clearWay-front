@@ -1,10 +1,18 @@
 import axios from 'axios';
-import axiosAuth from '../utils/axiosAuth';
+import axiosAuthConfig from '../utils/axiosAuthConfig';
 import {reset} from 'redux-form';
 import history from '../utils/history';
 import LinkKey from '../utils/linkKeys';
 import loaderControllor from '../utils/loaderControllor';
 import { FETCH_USER, FETCH_ERROR, CREATE_ROUTE, SEARCH_ROUTE, INFO_SEARCH, INFO_RIDE, INFO_NOTIFICATION, INFO_RATE } from'./types';
+
+const authInterceptor = axios.interceptors.request.use(
+	function(config) {
+	  return axiosAuthConfig(config);
+	}, function(err) {
+	  return Promise.reject(err);
+	}
+);
 
 export const saveRatings = (ratingData) => async dispatch => {
 	loaderControllor('on');
@@ -124,23 +132,35 @@ export const getAllMyRouts = () => async dispatch => {
 }
 
 export const updateUser = (userData, photo) => async dispatch => {
-		// const uploadConfig = await axios.get(LinkKey('/api/user/photoUpload'));
-		// const upload = await axios.put(uploadConfig.data.url, photo, {
-		// 	headers: {
-		// 		'Content-Type': photo.type,
-		// 		'x-amz-acl': 'public-read',
-  //            'x-amz-region': 'us-east-2'
-		// 	}
-		// });
+	loaderControllor('on');
 
-
+	if (photo) {
+		const userTag = localStorage.getItem('user');
+		axios.interceptors.request.eject(authInterceptor);
+		const uploadConfig = await axios.get(LinkKey('/api/user/photoUpload/'+userTag));
+		userData.photo = uploadConfig.data.key;
+		await axios.put(uploadConfig.data.url, photo, {
+			headers: {
+				'Content-Type': photo.type
+			}
+		});
+	};
 
 	try{
+		axios.interceptors.request.use(
+			function(config) {
+			  return axiosAuthConfig(config);
+			}, function(err) {
+			  return Promise.reject(err);
+			}
+		);
 		const res = await axios.post(LinkKey('/api/user/update'), userData);
 		dispatch({type: FETCH_USER, payload: res.data});
 		history.push('/dashboard', { some: 'state' });
+		loaderControllor('off');
 	}catch(error){
 		dispatch({type: FETCH_ERROR, payload: error.response});
+		loaderControllor('off');
 	}
 }
 

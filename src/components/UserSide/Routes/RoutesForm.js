@@ -56,7 +56,7 @@ class RoutesForm extends Component {
 	}
 
 	handleFreqChange(value) {
-			if (value[0] == 2) {
+			if (value[0] === 2) {
 				document.getElementById('singleDate').style.display = 'block';
 			}else{
 				document.getElementById('singleDate').style.display = 'none';
@@ -265,7 +265,7 @@ function validate(values) {
 		errors['time'] = "Broj slobodnih mesta je obavezno polje";
 	}
 
-	if (values.frequency == 2) {
+	if (values.frequency === 2) {
 		if (!values.date) {
 			errors['date'] = "U slučaju pojedinačne vožnje, na dan je obavezno polje";
 		};

@@ -92,12 +92,16 @@
 
         .searchItem .l-side .image{
             width: 46px;
+            height: 46px;
+            text-align: center;
             margin: auto;
 
         }
 
             .searchItem .l-side .image img{
                 max-width: 100%;
+                height: 100%;
+                border-radius: 50%;
             }
 
         .searchItem .l-side span{
@@ -164,11 +168,15 @@
 
         .applicationItem .user .image{
             width: 80px;
+            height: 80px;
+            text-align: center;
             margin: auto;
         }
 
             .applicationItem .user .image img{
                 max-width: 100%;
+                height: 100%;
+                border-radius: 50%;
             }
 
         .applicationItem .user span{
@@ -315,13 +323,16 @@
         }
             .ridesItem .general .person .photo-container{
                 width: 50px;
+                height: 50px;
+                text-align: center;
                 display: inline-block;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                border-radius: 50%;
             }
                 .ridesItem .general .person .photo-container .photo{
                     max-width: 100%;
+                    height: 100%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
                 }
 
             .ridesItem .general .person .info{
@@ -473,13 +484,17 @@
 
             .passengerInfo .person .photo-container{
                 width: 50px;
+                height: 50px;
+                text-align: center;
                 display: inline-block;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                border-radius: 50%;
+                
             }
                 .passengerInfo .person .photo-container .photo{
                     max-width: 100%;
+                    height: 100%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    border-radius: 50%;
                 }
 
         .passengerInfo .info{

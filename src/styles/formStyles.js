@@ -58,11 +58,16 @@ const formStyles = {
   },
   avatarContainer: {
     width: '100px',
+    height: '100px',
     margin: 'auto',
-    marginTop: '10px'
+    marginTop: '10px',
+    marginBottom: '15px',
+    textAlign: 'center'
   },
   avatarImage: {
-    maxWidth: '100%'
+    maxWidth: '100%',
+    height: '100%',
+    borderRadius: '50%'
   }
 }
 

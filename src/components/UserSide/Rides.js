@@ -33,19 +33,12 @@ class Rides extends Component {
 
 	displayPassanger() {
 		if (!isObjectEmpty(this.props.rides) && typeof this.props.rides === 'object') {
-			if (this.props.rides.passanger.length > 0 && this.props.rides.passanger.length != undefined) {
-				console.log(this.props.rides.passanger);
+			if (this.props.rides.passanger.length > 0 && this.props.rides.passanger.length !== undefined) {
+				console.log(this.props.rides);
 				return(
 					this.props.rides.passanger.map( (ride, index) => {
 						const date = new Date(ride.date);
-						let car = 'unknown';
-						let rate = 1;
-						if (ride.route.userObj.driverNo != 0) {
-							rate = ride.route.userObj.driverSumm / ride.route.userObj.driverNo;
-						}
-						if (ride.route.userObj.car) {
-							car = ride.route.userObj.car.model;
-						}
+						
 						return (
 							<RideSingle 
 								key={index} 
@@ -57,12 +50,13 @@ class Rides extends Component {
 								end={ride.reservations[0].end}
 								price={ride.route.price}
 								user={ride.route.userObj.username}
-								car={car}
+								car={ride.route.userObj.car ? ride.route.userObj.car.model : 'automobil nepoznat'}
+								photo={ride.route.userObj.photo ? `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${ride.route.userObj.photo}` : ''}
 								status={ride.reservations[0].status}
 								resId={ride.reservations[0]._id}
 								change={ride.reservations[0].statusChange}
 								reservationChange={this.reservationChangeStatus}
-								driverRate={rate.toFixed(1)}
+								driverRate={ride.route.userObj.driverNo ? (ride.route.userObj.driverSumm / ride.route.userObj.driverNo).toFixed(1) : 1}
 							/>
 						)
 					})
@@ -73,7 +67,7 @@ class Rides extends Component {
 
 	displayDriver() {
 		if (!isObjectEmpty(this.props.rides) && typeof this.props.rides === 'object') {
-			if (this.props.rides.driver.length > 0 && this.props.rides.driver.length != undefined) {
+			if (this.props.rides.driver.length > 0 && this.props.rides.driver.length !== undefined) {
 				return(
 					this.props.rides.driver.map( (ride, index) => {
 						console.log(ride);

@@ -3,7 +3,7 @@ import TrendingFlat from 'material-ui/svg-icons/action/trending-flat';
 import avatar from '../../../avatar.png';
 
 const PassengerInfo = (props) => {
-
+	
 	return(
 		<div>
 			<h2 className="interHead">Vožnja {props.date} u {props.time}</h2>
@@ -11,7 +11,7 @@ const PassengerInfo = (props) => {
 				<div className="person">
 					<div className="image">
 						<div className="photo-container">
-							<img src={avatar} className="photo" alt="avatar"/>
+							<img src={props.photo ? props.photo : avatar} className="photo" alt="avatar"/>
 						</div>
 					</div>
 					

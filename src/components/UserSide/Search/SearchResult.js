@@ -12,25 +12,19 @@ class SearchResult extends Component {
 			if (this.props.routeInfo[0].userObj) {
 				return(
 					this.props.routeInfo.map( (route, index) => {
-						let car = 'trenutno nepoznato';
-						if (route.userObj.car) {
-							car = route.userObj.car.model + ', ' + route.userObj.car.modelNumber + ', ' + route.userObj.car.modelYear;
-						}
-						let rate = 1;
-						if (route.userObj.driverNo != 0) {
-							rate = route.userObj.driverSumm / route.userObj.driverNo;
-						}
+						
 						return (
 							<SearchItem 
 								key={index} 
-								name={route.userObj.name}
+								name={route.userObj.username}
+								photo={route.userObj.photo ? `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${route.userObj.photo}` : ''}
 								start={route.start}
 								end={route.end}
 								time={route.time}
 								price={route.price}
-								car={car}
+								car={route.userObj.car ? (route.userObj.car.model + ', ' + route.userObj.car.modelNumber + ', ' + route.userObj.car.modelYear) : 'trenutno nepoznato'}
 								button={() => this.props.setApplicationRoute(route._id)}
-								rate={rate.toFixed(1)}
+								rate={route.userObj.driverNo ? (route.userObj.driverSumm / route.userObj.driverNo).toFixed(1) : 1}
 							/>
 						)
 					})

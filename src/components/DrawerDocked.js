@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as actions from '../actions';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -8,10 +9,31 @@ import { Link } from "react-router-dom";
 import avatar from '../avatar.png';
 import headerStyles from '../styles/headerStyles';
 import isObjectEmpty from '../utils/isObjectEmpty';
+import LinkKey from '../utils/linkKeys';
 
 class DrawerDocked extends React.Component {
 
+	constructor() {
+	    super();
+	    
+
+	    this.state = {
+	      userPhoto: avatar,
+	      userName: ''
+	    }
+	}
+
 	async componentDidMount() {
+		const link = LinkKey('/api/user');
+    const user = await axios.get(link);
+    if (user.data.photo) {
+      this.setState({
+        userPhoto: `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${user.data.photo}`
+      })
+    }
+    this.setState({
+      userName: user.data.username
+    })
 		await this.props.getAllMyNotifications()
 	}
 
@@ -35,9 +57,9 @@ class DrawerDocked extends React.Component {
 	        <div>
 	          <div>
 	            <div style={headerStyles.profileContainer}>
-	              <img src={avatar} style={headerStyles.headerImage} alt="avatar"/>
+	              <img src={this.state.userPhoto} style={headerStyles.profileImage} alt="avatar"/>
 	            </div>
-	            <h3 style={headerStyles.profileHeader}>Jovan Šutić</h3>
+	            <h3 style={headerStyles.profileHeader}>{this.state.userName}</h3>
 	          </div>
 
 	          <Link to="/profile" style={{ textDecoration: 'none' }}>
@@ -76,7 +98,7 @@ class DrawerDocked extends React.Component {
 
 
 function mapStateToProps(state){
-	return {notification: state.notification, auth: state.auth, error: state.error };
+	return {notification: state.notification, error: state.error };
 }
 
 export default connect(mapStateToProps, actions)(DrawerDocked);

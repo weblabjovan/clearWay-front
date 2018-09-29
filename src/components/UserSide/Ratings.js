@@ -35,6 +35,7 @@ class Ratings extends Component {
 	sendRatings() {
 		let flag = true;
 		Object.keys(this.state).map( ( key ) => {
+			// eslint-disable-next-line 
 			if (this.state[key] == 0) {
 				flag = false;
 			}
@@ -62,9 +63,9 @@ class Ratings extends Component {
 
 	displayPassInfo() {
 		if (!isObjectEmpty(this.props.rate)) {
-			const date = new Date(parseInt(this.props.rate.ride.date));
-			let car = 'unknown';
-			if (this.props.rate.type == 'driver') {
+			const date = new Date(parseInt(this.props.rate.ride.date, 10));
+			let car = 'trenutno nepoznato';
+			if (this.props.rate.type === 'driver') {
 				car = '';
 			}
 			return(
@@ -75,6 +76,7 @@ class Ratings extends Component {
 					time={this.props.rate.ride.time}
 					start={this.props.rate.ride.reservation.start}
 					end={this.props.rate.ride.reservation.end}
+					photo={this.props.rate.user.photo ? `https://s3.us-east-2.amazonaws.com/claro-profile-bucket/${this.props.rate.user.photo}` : ''}
 				/>
 			)
 				
@@ -86,7 +88,7 @@ class Ratings extends Component {
 			let word1 = 'vožnje';
 			let word2 = 'vozačem i ostalim putnicima';
 			let word3 = 'plaćanjem (popustom)'
-			if (this.props.rate.type == 'driver') {
+			if (this.props.rate.type === 'driver') {
 				word1 = 'ponašanja putnika';
 				word2 = 'putnikom';
 				word3 = 'naplatom'

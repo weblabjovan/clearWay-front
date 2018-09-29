@@ -16,7 +16,7 @@ class RoutesMap extends Component {
 	}
 
 	async clearWaypoints() {
-		if (typeof this.props.routeInfo.date == 'object') {
+		if (typeof this.props.routeInfo.date === 'object') {
 			this.props.routeInfo.dateString = this.props.routeInfo.date.toString();
 		}
 		const routeData = {routeInfo: this.props.routeInfo, waypoints: this.getWaypoints(), steps: this.getSteps()};
